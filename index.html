@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Transfer Service</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Language Selection -->
+        <div id="languageSelection" class="form-container active">
+            <h1>Select Language / භාෂාව තෝරන්න / மொழியைத் தேர்ந்தெடுக்கவும்</h1>
+            <p class="subtitle">Choose your preferred language</p>
+            <div class="language-options">
+                <button class="language-btn" data-lang="en">
+                    <span class="lang-icon">🇬🇧</span>
+                    <span class="lang-name">English</span>
+                </button>
+                <button class="language-btn" data-lang="si">
+                    <span class="lang-icon">🇱🇰</span>
+                    <span class="lang-name">සිංහල</span>
+                </button>
+                <button class="language-btn" data-lang="ta">
+                    <span class="lang-icon">🇱🇰</span>
+                    <span class="lang-name">தமிழ்</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- User Registration Form -->
+        <div id="registrationForm" class="form-container">
+            <h1 data-translate="welcome">Welcome to Vehicle Transfer Service</h1>
+            <p class="subtitle" data-translate="provide-details">Please provide your details to begin</p>
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="userName" data-translate="full-name">Full Name</label>
+                    <input type="text" id="userName" required data-translate-placeholder="enter-name">
+                </div>
+                <div class="form-group">
+                    <label for="vehicleNumber" data-translate="vehicle-number">Vehicle Number</label>
+                    <input type="text" id="vehicleNumber" required data-translate-placeholder="vehicle-example">
+                </div>
+                <div class="form-group">
+                    <label for="mobileNumber" data-translate="mobile-number">Mobile Number</label>
+                    <input type="tel" id="mobileNumber" required data-translate-placeholder="mobile-example">
+                </div>
+                <button type="submit" class="btn btn-primary" data-translate="continue">Continue</button>
+            </form>
+        </div>
+
+        <!-- Service Type Selection (One Day or Normal) -->
+        <div id="serviceTypeSelection" class="form-container">
+            <h1 data-translate="select-service-type">Select Service Type</h1>
+            <p class="subtitle" data-translate="choose-service">Choose the processing type you need</p>
+            <div class="service-options">
+                <button class="service-type-btn" data-type="one-day">
+                    <span class="icon">⚡</span>
+                    <div>
+                        <div style="font-size: 18px; font-weight: 700;" data-translate="one-day-service">One Day Service</div>
+                        <div style="font-size: 13px; margin-top: 5px; color: #666;" data-translate="one-day-desc">Get your transfer book today (All documents required)</div>
+                    </div>
+                </button>
+                <button class="service-type-btn" data-type="normal">
+                    <span class="icon">📋</span>
+                    <div>
+                        <div style="font-size: 18px; font-weight: 700;" data-translate="normal-service">Normal Service</div>
+                        <div style="font-size: 13px; margin-top: 5px; color: #666;" data-translate="normal-desc">Receive Form 52, collect book later</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Vehicle Type Selection -->
+        <div id="vehicleSelection" class="form-container">
+            <h1 data-translate="select-vehicle">Select Vehicle Type</h1>
+            <p class="subtitle" data-translate="choose-vehicle">Choose your vehicle type</p>
+            <div class="service-options">
+                <button class="service-btn" data-service="car-transfer">
+                    <span class="icon">🚗</span>
+                    <span data-translate="car-transfer">Car Transfer</span>
+                </button>
+                <button class="service-btn" data-service="motorcycle-transfer">
+                    <span class="icon">🏍️</span>
+                    <span data-translate="motorcycle-transfer">Motorcycle Transfer</span>
+                </button>
+                <button class="service-btn" data-service="vehicle-transfer">
+                    <span class="icon">🚙</span>
+                    <span data-translate="vehicle-transfer">General Vehicle Transfer</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Document Checklist -->
+        <div id="documentChecklist" class="form-container">
+            <h1 data-translate="document-checklist">Required Documents</h1>
+            <p class="subtitle" data-translate="ensure-documents">Please ensure you have all the following documents before proceeding</p>
+            <div class="user-info" style="margin-bottom: 20px;">
+                <p><strong data-translate="service">Service:</strong> <span id="displayServiceChecklist"></span></p>
+            </div>
+            <div class="checklist">
+                <label class="checkbox-item">
+                    <input type="checkbox" class="doc-checkbox" required>
+                    <span data-translate="revenue-license">Original Vehicle Registration Certificate (Revenue License Book)</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" class="doc-checkbox" required>
+                    <span data-translate="deed-sale">Transfer deed duly signed by both parties</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" class="doc-checkbox" required>
+                    <span data-translate="seller-nic">National Identity Card (NIC) of both seller and buyer</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" class="doc-checkbox" required>
+                    <span data-translate="ownership-cert">Insurance Certificate (valid)</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" class="doc-checkbox" required>
+                    <span data-translate="buyer-photo">Emission Test Certificate (if applicable)</span>
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" class="doc-checkbox" required>
+                    <span data-translate="buyer-nic">Payment receipt for transfer fee</span>
+                </label>
+            </div>
+            <div class="checklist-warning" id="checklistWarning">
+                <p data-translate="check-documents">⚠️ Please check all items to proceed</p>
+            </div>
+            <button id="proceedBtn" class="btn btn-primary" disabled data-translate="proceed-all">Proceed to Service</button>
+            <button id="missingDocsBtn" class="btn btn-secondary" style="margin-top: 10px;" data-translate="missing-docs">I Don't Have All Documents</button>
+        </div>
+
+        <!-- Missing Documents - Information Counter -->
+        <div id="informationCounter" class="form-container">
+            <h1 data-translate="missing-documents">Missing Documents</h1>
+            <p class="subtitle" id="missingDocsSubtitle" data-translate="visit-counter">Please visit the Information Counter</p>
+            <div class="info-box" id="oneDayWarning" style="display: none; background: #fff3cd; border-left-color: #ffc107;">
+                <p><strong data-translate="one-day-unavailable">⚠️ One Day Service Unavailable</strong></p>
+                <p style="margin-top: 10px;" data-translate="switched-normal">Since you don't have all required documents, you cannot use the One Day Service. You will be switched to <strong>Normal Service</strong>.</p>
+                <p style="margin-top: 10px;" data-translate="receive-form52">With Normal Service, you will receive <strong>Form 52</strong> today and can collect your transfer book later.</p>
+            </div>
+            <div class="info-box">
+                <p data-translate="visit-officer">📋 Please visit the <strong>Information Counter</strong> to speak with an officer about your missing documents.</p>
+                <p style="margin-top: 10px;" data-translate="officer-guide">The officer will guide you on:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li data-translate="which-docs">Which documents you need to obtain</li>
+                    <li data-translate="where-docs">Where to get the missing documents</li>
+                    <li data-translate="alt-procedures">Alternative procedures if applicable</li>
+                </ul>
+            </div>
+            <div class="user-info" style="margin-bottom: 20px; margin-top: 20px;">
+                <p><strong data-translate="service-type">Service Type:</strong> <span id="displayServiceTypeInfo"></span></p>
+                <p><strong data-translate="vehicle">Vehicle:</strong> <span id="displayServiceInfo"></span></p>
+            </div>
+            <div class="form-group">
+                <label for="officerNotes" data-translate="officer-instructions">Officer's Instructions (Optional)</label>
+                <textarea id="officerNotes" rows="4" data-translate-placeholder="officer-placeholder"></textarea>
+            </div>
+            <button id="continueNormalService" class="btn btn-primary" style="display: none;" data-translate="continue-normal">Continue with Normal Service</button>
+            <button class="btn btn-secondary" onclick="location.reload()" data-translate="start-over">Start Over</button>
+        </div>
+
+        <!-- Process Steps -->
+        <div id="processSteps" class="form-container">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-info">
+                    <div class="current-step-indicator">
+                        <span class="indicator-label" data-translate="current">Current:</span>
+                        <span id="currentStepText" class="indicator-text">Step 1 of 7</span>
+                    </div>
+                    <div class="next-step-indicator">
+                        <span class="indicator-label" data-translate="next">Next:</span>
+                        <span id="nextStepText" class="indicator-text">Step 2 - Front Office 02</span>
+                    </div>
+                </div>
+                <button id="exitProcessBtn" class="exit-process-btn" data-translate="exit-process" title="Cannot continue? Click here">
+                    ⚠️ Exit Process
+                </button>
+            </div>
+            <div class="step-info">
+                <h2 id="stepTitle">Step 1</h2>
+                <p id="stepDescription">Go to counter for document check</p>
+                <div class="floor-map-placeholder">
+                    <div class="map-icon">🗺️</div>
+                    <p data-translate="floor-layout">Floor Layout Map Here</p>
+                    <small data-translate="counter-location">Shows location of counter for this step</small>
+                </div>
+                <div id="stepGuidance" class="step-guidance">
+                    <h3 data-translate="what-to-do">What to do:</h3>
+                    <ul id="guidanceList"></ul>
+                </div>
+            </div>
+            <div class="user-info">
+                <p><strong data-translate="name">Name:</strong> <span id="displayName"></span></p>
+                <p><strong data-translate="vehicle">Vehicle:</strong> <span id="displayVehicle"></span></p>
+                <p><strong data-translate="service-type">Service Type:</strong> <span id="displayServiceType"></span></p>
+                <p><strong data-translate="vehicle-type">Vehicle Type:</strong> <span id="displayService"></span></p>
+            </div>
+            <div class="time-tracking-section">
+                <div class="tracking-phase" id="waitingPhase">
+                    <div class="phase-header">
+                        <span class="phase-icon">⏱️</span>
+                        <div>
+                            <h4 data-translate="waiting-phase">Waiting Phase</h4>
+                            <p class="phase-desc" data-translate="waiting-desc">Click when you start waiting in line/queue</p>
+                        </div>
+                    </div>
+                    <button id="startWaitingBtn" class="btn btn-secondary" data-translate="start-waiting">Start Waiting Timer</button>
+                </div>
+                
+                <div class="tracking-phase" id="processingPhase" style="display: none;">
+                    <div class="phase-header">
+                        <span class="phase-icon">⚙️</span>
+                        <div>
+                            <h4 data-translate="processing-phase">Processing Phase</h4>
+                            <p class="phase-desc" data-translate="processing-desc">Click when officer starts processing your documents</p>
+                        </div>
+                    </div>
+                    <button id="startProcessingBtn" class="btn btn-secondary" data-translate="start-processing">Start Processing Timer</button>
+                </div>
+                
+                <div class="tracking-phase" id="completionPhase" style="display: none;">
+                    <div class="confirmation-box">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="stepConfirmation">
+                            <span class="checkbox-label" data-translate="step-complete">✓ All done with this step</span>
+                        </label>
+                    </div>
+                    <div class="step-issue-box">
+                        <label for="stepIssue" data-translate="any-issues">Did you face any issues in this step? (Optional)</label>
+                        <textarea id="stepIssue" rows="3" data-translate-placeholder="describe-issues"></textarea>
+                    </div>
+                    <button id="nextStepBtn" class="btn btn-primary" disabled data-translate="complete-step">Complete This Step</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exit Process Modal -->
+        <div id="exitModal" class="modal">
+            <div class="modal-content">
+                <h2 data-translate="cannot-continue">⚠️ Cannot Continue Process?</h2>
+                <p data-translate="exit-help">We're sorry you're facing difficulties. Please help us understand what went wrong:</p>
+                <div class="form-group">
+                    <label for="exitReason" data-translate="exit-reason-label">Why are you unable to continue? *</label>
+                    <textarea id="exitReason" rows="4" data-translate-placeholder="exit-reason-placeholder" required></textarea>
+                    <span class="error-message" id="exitReasonError"></span>
+                </div>
+                <div class="modal-buttons">
+                    <button id="confirmExitBtn" class="btn btn-danger" data-translate="submit-exit">Submit & Exit</button>
+                    <button id="cancelExitBtn" class="btn btn-secondary" data-translate="cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Completion Screen -->
+        <div id="completionScreen" class="form-container">
+            <div class="completion-icon">✅</div>
+            <h1 data-translate="process-complete">Process Complete!</h1>
+            <p class="subtitle" data-translate="thank-you">Thank you for using our service</p>
+            <div class="summary">
+                <h3 data-translate="time-summary">Time Summary</h3>
+                <div id="timeSummary"></div>
+                <div class="total-time">
+                    <strong data-translate="total-time-label">Total Time:</strong> <span id="totalTime"></span>
+                </div>
+            </div>
+            <div class="data-saved-notice">
+                <p data-translate="data-recorded">✓ Thank you! Your response has been recorded for our research</p>
+            </div>
+            <button class="btn btn-secondary" onclick="location.reload()" data-translate="new-process">Start New Process</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
