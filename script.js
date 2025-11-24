@@ -314,7 +314,7 @@ function updateProgress() {
     // Update current step text
     const currentStepNum = state.currentStep + 1;
     const totalSteps = state.steps.length;
-    const currentLang = localStorage.getItem('language') || 'en';
+    const currentLang = localStorage.getItem('preferredLanguage') || 'en';
     const currentLabel = translations[currentLang]?.current || 'Current';
     const stepLabel = translations[currentLang]?.step || 'Step';
     const ofLabel = translations[currentLang]?.of || 'of';
@@ -341,7 +341,7 @@ function updateProgress() {
 // Display current step
 function displayStep() {
     const step = state.steps[state.currentStep];
-    const currentLang = localStorage.getItem('language') || 'en';
+    const currentLang = localStorage.getItem('preferredLanguage') || 'en';
     const currentStepNum = state.currentStep + 1;
     
     // Translate step title and description
