@@ -373,7 +373,7 @@ function validateName(name) {
 
 function validateVehicleNumber(vehicleNumber) {
     // Sri Lankan vehicle number format: ABC-1234 or ABC1234 or 12-1234
-    const vehiclePattern = /^[A-Z]{2,3}[-\s]?\d{4}$|^\d{2}[-\s]?\d{4}$/i;
+    const vehiclePattern = /^[A-Z]{2,3}[-\s]?\d{4}$|^\d{2,3}[-\s]?\d{4}$/i;
     return vehiclePattern.test(vehicleNumber.trim());
 }
 
